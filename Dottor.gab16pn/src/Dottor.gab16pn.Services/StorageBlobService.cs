@@ -18,6 +18,17 @@
         {
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(config.Get<string>("AzureStorageConnectionString"));
             blobClient = storageAccount.CreateCloudBlobClient();
+
+            CreateContainers().Wait();
+        }
+
+        private async Task CreateContainers()
+        {
+            var containerBase = blobClient.GetContainerReference("gab16pn");
+            await containerBase.CreateIfNotExistsAsync();
+
+            var containerInput = blobClient.GetContainerReference("gab16pn-input");
+            await containerBase.CreateIfNotExistsAsync();
         }
 
         /// <summary>
