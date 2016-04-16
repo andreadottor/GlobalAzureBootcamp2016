@@ -1,0 +1,35 @@
+﻿@model Dottor.gab16pn.Web.Models.ErrorModel
+@{
+    ViewData["Title"] = "Errore nel caricamento";
+}
+
+<div class="row" style="margin-bottom: 20px;">
+    <div class="col-md-12">
+        <h1>Caricamento foto</h1>
+    </div>
+</div>
+<hr />
+
+<div class="panel panel-danger">
+    <div class="panel-heading">Errore nel caricamento del file</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>@Model.Message</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <p>@Html.Raw(Model.StackTrace.Replace("/r/n", "<br />"))</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-primary" asp-controller="Home" asp-action="Upload">Carica una nuova foto</a>
+            </div>
+        </div>
+    </div>
+</div>
+

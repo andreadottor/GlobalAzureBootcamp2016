@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewData["Title"] = "Foto caricata con successo";
+}
+
+<div class="row" style="margin-bottom: 20px;">
+    <div class="col-md-12">
+        <h1>Caricamento foto</h1>
+    </div>
+</div>
+<hr />
+
+<div class="panel panel-success">
+    <div class="panel-heading">File caricato con successo</div>
+    <div class="panel-body">
+        <p>
+            Un processo in background si occuperà di eseguire il ridimensionamento.<br />
+            L'immagine verrà resa disponibile quanto prima.
+        </p>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-success">Torna alla photogallery</a>
+    </div>
+</div>

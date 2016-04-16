@@ -1,0 +1,45 @@
+﻿@model Dottor.gab16pn.Web.Models.IndexViewModel
+
+@{
+    ViewData["Title"] = "Photogallery";
+    var index = 0;
+}
+
+<div class="row" style="margin-bottom: 20px;">
+    <div class="col-md-12">
+        <h1>Photogallery</h1>
+    </div>
+</div>
+<hr />
+<div class="row row-images">
+    
+        @foreach (var file in Model.Files)
+        {
+            index++;
+
+            <div class="col-md-3">
+                <div class="image-item">
+                    <a data-toggle="modal" data-target="#popup-@index" href="#"><img src="@file" /></a>
+                </div>
+                <div class="modal fade" tabindex="-1" role="dialog" id="popup-@index" >
+                    <div class="modal-dialog" style="width:640px;">
+                        <div class="modal-content">
+                            <img src="@file.Replace("240x", "640x")" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            if (index % 4 == 0)
+            {
+                @:</div>
+                @:<div class="row row-images">
+			}
+
+        }
+
+
+</div>
+
+
+
