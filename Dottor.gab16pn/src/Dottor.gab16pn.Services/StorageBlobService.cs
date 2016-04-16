@@ -25,7 +25,15 @@
         private async Task CreateContainers()
         {
             var containerBase = blobClient.GetContainerReference("gab16pn");
-            await containerBase.CreateIfNotExistsAsync();
+            if(await containerBase.CreateIfNotExistsAsync())
+            {
+                await container.SetPermissionsAsync(
+                    new BlobContainerPermissions
+                    {
+                        PublicAccess =
+                            BlobContainerPublicAccessType.Container
+                    });
+            }
 
             var containerInput = blobClient.GetContainerReference("gab16pn-input");
             await containerInput.CreateIfNotExistsAsync();
