@@ -28,7 +28,7 @@
             await containerBase.CreateIfNotExistsAsync();
 
             var containerInput = blobClient.GetContainerReference("gab16pn-input");
-            await containerBase.CreateIfNotExistsAsync();
+            await containerInput.CreateIfNotExistsAsync();
         }
 
         /// <summary>
