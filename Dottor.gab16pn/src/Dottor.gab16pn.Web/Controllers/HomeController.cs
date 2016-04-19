@@ -10,20 +10,23 @@
     using Dottor.gab16pn.Web.Models;
     using Microsoft.AspNet.Http;
     using Microsoft.AspNet.Mvc;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Net.Http.Headers;
 
     public class HomeController : Controller
     {
         IStorageBlobService blob;
+        IConfigurationRoot config;
 
-        public HomeController(IStorageBlobService blobStorage)
+        public HomeController(IStorageBlobService blobStorage, IConfigurationRoot config)
         {
             this.blob = blobStorage;
+            this.config = config;
         }
 
         public async Task<IActionResult> Index()
         {
-            var files = await blob.GetAllFilesAsync("gab16pn", "240x");
+            var files = await blob.GetAllFilesAsync(config.Get<string>("blobContainerName"), "240x");
 
             IndexViewModel model = new IndexViewModel();
             model.Files = files.Select(f => f.Uri.ToString());
@@ -53,7 +56,7 @@
                 {
                     using (var stream = file.OpenReadStream())
                     {
-                        await blob.UploadFromStreamAsync("gab16pn-input", fileName, file.ContentType, ReadFully(stream));
+                        await blob.UploadFromStreamAsync(config.Get<string>("blobContainerUploadName"), fileName, file.ContentType, ReadFully(stream));
                     }
                 }
                 else

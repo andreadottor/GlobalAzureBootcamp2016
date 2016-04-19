@@ -19,15 +19,17 @@
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(config.Get<string>("AzureStorageConnectionString"));
             blobClient = storageAccount.CreateCloudBlobClient();
 
-            CreateContainers().Wait();
+            CreateContainers(
+                config.Get<string>("blobContainerName"), 
+                config.Get<string>("blobContainerUploadName")).Wait();
         }
 
-        private async Task CreateContainers()
+        private async Task CreateContainers(string containerName, string containerUploadName)
         {
-            var containerBase = blobClient.GetContainerReference("gab16pn");
+            var containerBase = blobClient.GetContainerReference(containerName);
             if(await containerBase.CreateIfNotExistsAsync())
             {
-                await container.SetPermissionsAsync(
+                await containerBase.SetPermissionsAsync(
                     new BlobContainerPermissions
                     {
                         PublicAccess =
@@ -35,7 +37,7 @@
                     });
             }
 
-            var containerInput = blobClient.GetContainerReference("gab16pn-input");
+            var containerInput = blobClient.GetContainerReference(containerUploadName);
             await containerInput.CreateIfNotExistsAsync();
         }
 
