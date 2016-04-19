@@ -3,5 +3,6 @@
   <PropertyGroup>
     <ActiveDebugProfile>IIS Express</ActiveDebugProfile>
     <NameOfLastUsedPublishProfile>gab16pn-dottor</NameOfLastUsedPublishProfile>
+    <ShowAllFiles>true</ShowAllFiles>
   </PropertyGroup>
 </Project>
